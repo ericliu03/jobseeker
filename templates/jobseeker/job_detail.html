@@ -1,0 +1,5 @@
+{#        <h3><a href={% url "jobseeker:job_detail"  candidate_id forloop.counter%}>{{ forloop.counter }}: {{ job.job_title }}</a></h3>#}
+{% for key, value in result %}
+    <li>{{ key }}:{{ value }}</li>
+    <label for="req{{ forloop.counter }}"></label><br/>
+{% endfor %}

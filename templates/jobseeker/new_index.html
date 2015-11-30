@@ -1,0 +1,20 @@
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<h1>Log In</h1>
+<form action="{% url 'jobseeker:login_prepare' %}" method="post">
+    {% csrf_token %}
+
+    Username:<input type="text" name="Username" id="username" value=""/>
+    <label for="username"></label><br/>
+    Password:<input type="password" name="Password" id="password" value=""/>
+    <label for="password"></label><br/>
+
+    <input type="submit" value="Login"/>
+</form>
+<a href={% url 'jobseeker:create_candidate' %}>First Time Here?</a><br/>
+<a href={% url "home" %}>Back</a>

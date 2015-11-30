@@ -1,0 +1,22 @@
+<h1>Search Result</h1>
+<h2>User:{{ candidate.id }}, Name:{{ candidate.name }}</h2>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<ul>
+    {% if result == None %}
+        <h3>No Result</h3>
+    {% else %}
+        {% for job in result %}
+            <h3>
+                <a href={% url "jobseeker:job_detail"  candidate.id forloop.counter %}>{{ forloop.counter }}: {{ job.job_title }}</a>
+            </h3>
+            {% for key, value in job.iteritems %}
+                {% if key == 'skills' or key == 'city' or key == 'company' or key == 'job_type' or key == 'education' or key == 'snippet' %}
+                    <li><b>{{ key }}: </b>{{ value|safe }}</li>
+                    <label for="req{{ forloop.counter }}"></label><br/>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+</ul>
+
+<a href={% url 'jobseeker:search' candidate.id %}>Search Again</a>

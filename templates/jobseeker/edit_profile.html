@@ -1,0 +1,14 @@
+<h1>User:{{ candidate.id }}, Name:{{ candidate.name }}<br/> Edit your profile</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'jobseeker:edit_profile_submit' candidate.id %}" method="post">
+    {% csrf_token %}
+
+    {% for req, value in candidate.get_profile_info %}
+        {{ req }}:<input type="text" name="{{ req }}" id="req{{ forloop.counter }}" value="{{ value }}"/>
+        <label for="req{{ forloop.counter }}"></label><br/>
+    {% endfor %}
+
+    <input type="submit" value="End Editing"/>
+</form>

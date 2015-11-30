@@ -1,0 +1,23 @@
+<ul class="messages">
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+<form action="{% url 'jobseeker:create_submit' %}" method="post">
+    {% csrf_token %}
+
+    Username:<input type="text" name="Username" id="username" value=""/>
+    <label for="username"></label><br/>
+    Password:<input type="password" name="Password" id="password" value=""/>
+    <label for="password"></label><br/>
+    {% for req, value in candidate.get_create_info %}
+        {{ req }}:<input type="text" name="{{ req }}" id="req{{ forloop.counter }}" value=""/>
+        <label for="req{{ forloop.counter }}"></label><br/>
+    {% endfor %}
+    <input type="submit" value="Submit"/>
+
+</form>
+<form action="{% url 'jobseeker:create_candidate_cancelled' %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Cancel"/>
+</form>

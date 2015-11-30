@@ -1,0 +1,77 @@
+<h1>User ID:{{ candidate.id }}, Name:{{ candidate.name }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'jobseeker:search_submit' candidate.id %}" method="post">
+    {% csrf_token %}
+    *Seach Your Job: <input type="text" name="query_string" id="req0" value="{{ candidate.query_string }}"
+                            required="required"/>
+    <br/>
+
+    {% if candidate.job_type == 'internship' %}
+        Job type:<input type="radio" name="job_type" value="internship" checked="checked"/>Internship
+        <input type="radio" name="job_type" value="fulltime"/> Full-time
+    {% else %}
+        Job type:<input type="radio" name="job_type" value="internship"/>Internship
+        <input type="radio" name="job_type" value="fulltime" checked="checked"/> Full-time
+    {% endif %}
+    <br/>
+
+    Education:
+    {% if edu.bachelor %}
+        <input type="radio" name="education" value="bachelor" checked="checked"/>Bachelor
+    {% else %}
+        <input type="radio" name="education" value="bachelor"/>Bachelor
+    {% endif %}
+
+    {% if edu.master %}
+        <input type="radio" name="education" value="master" checked="checked"/>Master
+    {% else %}
+        <input type="radio" name="education" value="master"/>Master
+    {% endif %}
+
+    {% if edu.phd %}
+        <input type="radio" name="education" value="phd" checked="checked"/>Phd
+    {% else %}
+        <input type="radio" name="education" value="phd"/>Phd
+    {% endif %}
+
+    <br/>
+
+    Skills(use comma to separate):
+    <input type="text" name="skills" value="{{ candidate.skills }}"/>
+    <br/>
+    <br/>
+
+    Company:
+    <input type="text" name="company" value="{{ candidate.company }}"/>
+    <br/>
+    Location:
+    <input type="text" name="location" value="{{ candidate.location }}"/>
+    <br/>
+    Range(km):
+    <input type="text" name="search_range" value="{{ candidate.search_range }}"/>
+    <br/>
+
+    Add your search history weight:
+    {% if candidate.use_history == 'True' %}
+        <input type="radio" name="use_history" value="True" checked="checked"/>Yes
+        <input type="radio" name="use_history" value="False"/> No
+    {% else %}
+        <input type="radio" name="use_history" value="True"/>Yes
+        <input type="radio" name="use_history" value="False" checked="checked"/> No
+    {% endif %}
+    <br/>
+
+    <input type="submit" value="Search"/>
+</form>
+
+<form action="{% url 'jobseeker:edit_profile' candidate.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Edit Profile"/>
+</form>
+
+<form action="{% url 'jobseeker:logout_user' %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Logout"/>
+</form>
