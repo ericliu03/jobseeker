@@ -1,0 +1,26 @@
+<h1>Search For Talents</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'talentseeker:search_submit' %}" method="post">
+    {% csrf_token %}
+
+    Skills(use comma to separate): <input type="text" name="skills" id="skills" value=""/>
+    <br/>
+    <br/>
+    Education:
+    <input type="checkbox" name="education" value="bachelor"/>Bachelor
+    <input type="checkbox" name="education" value="master"/>Master
+    <input type="checkbox" name="education" value="phd"/>Phd
+    <br/>
+    <br/>
+    Experience(years):
+    from: <input type="text" name="from" value="" maxlength="2" style="width: 20px;"/>
+    to: <input type="text" name="to" value="" maxlength="2" style="width: 20px;"/>
+    <br/>
+
+
+    <input type="submit" value="Search"/>
+</form>
+
+<a href={% url "home" %}>Back</a>

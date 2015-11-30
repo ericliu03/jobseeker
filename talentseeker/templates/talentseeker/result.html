@@ -1,0 +1,21 @@
+<h1>Search Result</h1>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<ul>
+    {% if result_list == None %}
+        <h3>No Result</h3>
+    {% else %}
+        {% for talent in result_list %}
+            {% for key, value in talent.iteritems %}
+                {% if key == 'name' %}
+                    <h2><b>{{ key }}:</b>{{ value|safe }}</h2>
+                    <label for="req{{ forloop.counter }}"></label><br/>
+                {% else %}
+                    <li><b>{{ key }}:</b>{{ value|safe }}</li>
+                    <label for="req{{ forloop.counter }}"></label><br/>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+</ul>
+
+<a href={% url 'talentseeker:search' %}>Search Again</a>
